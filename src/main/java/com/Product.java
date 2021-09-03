@@ -7,5 +7,5 @@ public abstract class Product {
     public String toString() {
         return "Product: ";
     }
-    private int number;
+
 }
