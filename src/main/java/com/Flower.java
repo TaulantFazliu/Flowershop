@@ -1,6 +1,6 @@
 package com;
 
-public class Flower extends Product{
+public class Flower extends Product {
     private String type;
     private String color;
     private double price;
@@ -52,7 +52,7 @@ public class Flower extends Product{
 
     @Override
     public String toString() {
-        return String.format("%s Flower: %ntype:%s, color:%s, price:%.1f, season:%s"
-                , super.toString(),this.type,this.color,this.price,this.seasons);
+        return String.format("%s Flower: %ntype:%s, color:%s, price:%.1f"
+                , super.toString(), this.type, this.color, this.price);
     }
 }
