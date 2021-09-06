@@ -1,7 +1,7 @@
 package com;
 
 public abstract class Product {
-    public abstract double getCmimi();
+    public abstract double getPrice();
 
     @Override
     public String toString() {

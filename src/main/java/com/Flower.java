@@ -38,7 +38,7 @@ public class Flower extends Product {
     }
 
     @Override
-    public double getCmimi() {
+    public double getPrice() {
         return this.price;
     }
 
