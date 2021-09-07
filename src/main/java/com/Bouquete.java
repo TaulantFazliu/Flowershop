@@ -34,6 +34,28 @@ public class Bouquete extends Product {
         return flowers.size() == size.getNumberOfFlowers();
     }
 
+    public Size getSize() {
+        return size;
+    }
+
+    public void setSize(Size size) {
+        this.size = size;
+    }
+
+    public boolean isHasDecoration() {
+        return hasDecoration;
+    }
+    public int flowersNeeded(){
+        return Math.max(0, flowers.size()-size.getNumberOfFlowers());
+    }
+
+    public void setHasDecoration(boolean hasDecoration) {
+        this.hasDecoration = hasDecoration;
+    }
+    public void addFlower(Flower flower){
+        flowers.add(flower);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)

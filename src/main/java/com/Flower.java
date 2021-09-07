@@ -52,7 +52,7 @@ public class Flower extends Product {
 
     @Override
     public String toString() {
-        return String.format("%s Flower: %ntype:%s, color:%s, price:%.1f"
+        return String.format("%s %nFlower: Type:%s, color:%s, price:%.1f"
                 , super.toString(), this.type, this.color, this.price);
     }
 }

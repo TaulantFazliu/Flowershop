@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Flow;
 
 public class Flowershop {
     private Map<Product, Integer> products;
@@ -23,7 +24,7 @@ public class Flowershop {
 
     public void loadProducts() {
         try {
-            List<String> items = Files.readAllLines(Path.of("Flowers.txt"));
+            List<String> items = Files.readAllLines(Path.of("D:\\skyver\\git\\Flowershop\\src\\main\\java\\com\\Flower.txt"));
             for (String flower : items) {
                 String[] fields = flower.split(",");
                 String kind = fields[0];
@@ -79,6 +80,42 @@ public class Flowershop {
             products.put(bouquete, 1);
     }
 
+    public void buildBouquete(Size size, Product product, int qty) throws FlowerShopException {
+        if (qty > size.getNumberOfFlowers()) {
+            throw new FlowerShopException("The required quantity is not correct");
+        }
+        int flowersLeft = products.get(product) == null ? 0 : products.get(product);
+        if (flowersLeft < qty) {
+            throw new FlowerShopException("There are not enough flowers to complete the bouquete!");
+        }
+
+        Bouquete bouquete = null;
+        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+            if (entry.getKey() instanceof Bouquete) {
+                Bouquete b = (Bouquete) entry.getKey();
+                if (b.getSize() == size && !b.completed()) {
+                    bouquete = b;
+                    break;
+                }
+            }
+        }
+
+        if (bouquete == null) {
+            throw new FlowerShopException("There are no uncompleted bouquetes with required size! ");
+        }
+
+        int toBeCompleted = Math.min(qty, bouquete.flowersNeeded());
+        for (Product p : products.keySet()) {
+            if (p.equals(product) && toBeCompleted != 0) {
+                Flower flower = (Flower) p;
+                bouquete.addFlower(flower);
+                products.put(p, products.get(p) - 1);
+                toBeCompleted--;
+            }
+        }
+
+    }
+
     public boolean buyProduct(Product product, int qty) {
         if (products.containsKey(product) && products.get(product) >= qty) {
             products.put(product, products.get(product) - qty);
@@ -87,8 +124,46 @@ public class Flowershop {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Flowershop: %s, with products: %s",this.name,this.products);
+    }
+
+    public static void main(String[] args) {
+        try {
+            Flowershop flowershop = new Flowershop("Tali's shop");
+            flowershop.createBouquete(Size.M, false);
+//            flowershop.createBouquete(Size.L,true);
+            Flower flower1=new Violet("Violet", "Violet",12.4,Seasons.SUMMER,true);
+            Flower flower4=new Rose("Rose","red",4.3,Seasons.SUMMER,4);
+            Flower flower2=new Marigold("Marigold", "Marigold",10.4,Seasons.ALLSEASONAL,Groups.CELANDULA);
+            Flower flower3=new Violet("Violet", "Violet",12.4,Seasons.SUMMER,true);
+            System.out.println(flower1);
+            flowershop.addProduct(flower1, 1);
+            flowershop.addProduct(flower4, 10);
+            flowershop.addProduct(flower2,3);
+            Bouquete bouquete=new Bouquete(Size.M,true);
+            bouquete.addFlower(flower4);
+            bouquete.addFlower(flower2);
+            bouquete.addFlower(flower3);
+            bouquete.addFlower(flower3);
+            bouquete.addFlower(flower3);
+            bouquete.addFlower(flower3);
+            flowershop.addProduct(bouquete, 1);
+            System.out.println(bouquete);
+            flowershop.buildBouquete(Size.L, bouquete,1);
+//            flowershop.buyProduct(bouquete, 1);
 
 
+//            flowershop.loadProducts();
+//            flowershop.buildBouquete(Size.M,new Rose("Rose","red",12.4,Seasons.SUMMER,4),5);
+
+
+            System.out.println(flowershop);
+        } catch (FlowerShopException f) {
+            f.printStackTrace();
+        }
+    }
 
 
 }

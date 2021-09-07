@@ -29,7 +29,7 @@ public class Violet extends Flower implements Horns {
 
     @Override
     public String toString() {
-        return String.format("%s, Violet[ has horns=%b, season=%s, flourishes weekly=%b]",
+        return String.format("%s,[ has horns=%b, season=%s, flourishes weekly=%b]",
                 super.toString(), this.hasHorns(), this.seasons, this.flourishesWeekly);
     }
 }
