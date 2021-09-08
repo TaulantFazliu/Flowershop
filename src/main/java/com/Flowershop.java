@@ -80,7 +80,8 @@ public class Flowershop {
             products.put(bouquete, 1);
     }
 
-    public void buildBouquete(Size size, Product product, int qty) throws FlowerShopException {
+
+    public void buildBouquete(Size size, Flower product, int qty) throws FlowerShopException {
         if (qty > size.getNumberOfFlowers()) {
             throw new FlowerShopException("The required quantity is not correct");
         }
@@ -93,7 +94,7 @@ public class Flowershop {
         for (Map.Entry<Product, Integer> entry : products.entrySet()) {
             if (entry.getKey() instanceof Bouquete) {
                 Bouquete b = (Bouquete) entry.getKey();
-                if (b.getSize() == size && !b.completed()) {
+                if (b.getSize()==size&&!b.completed()) {
                     bouquete = b;
                     break;
                 }
@@ -101,12 +102,12 @@ public class Flowershop {
         }
 
         if (bouquete == null) {
-            throw new FlowerShopException("There are no uncompleted bouquetes with required size! ");
+            throw new FlowerShopException("The bouquete is null! ");
         }
 
-        int toBeCompleted = Math.min(qty, bouquete.flowersNeeded());
+        int toBeCompleted = Math.min(flowersLeft, bouquete.flowersNeeded());
         for (Product p : products.keySet()) {
-            if (p.equals(product) && toBeCompleted != 0) {
+            if (p.equals(product) || toBeCompleted != 0) {
                 Flower flower = (Flower) p;
                 bouquete.addFlower(flower);
                 products.put(p, products.get(p) - 1);
@@ -132,26 +133,29 @@ public class Flowershop {
     public static void main(String[] args) {
         try {
             Flowershop flowershop = new Flowershop("Tali's shop");
-            flowershop.createBouquete(Size.M, false);
+//            flowershop.createBouquete(Size.M, false);
 //            flowershop.createBouquete(Size.L,true);
-            Flower flower1=new Violet("Violet", "Violet",12.4,Seasons.SUMMER,true);
+//            Flower flower1=new Violet("Violet", "Violet",12.4,Seasons.SUMMER,true);
             Flower flower4=new Rose("Rose","red",4.3,Seasons.SUMMER,4);
-            Flower flower2=new Marigold("Marigold", "Marigold",10.4,Seasons.ALLSEASONAL,Groups.CELANDULA);
-            Flower flower3=new Violet("Violet", "Violet",12.4,Seasons.SUMMER,true);
-            System.out.println(flower1);
-            flowershop.addProduct(flower1, 1);
+//            Flower flower2=new Marigold("Marigold", "Marigold",10.4,Seasons.ALLSEASONAL,Groups.CELANDULA);
+//            Flower flower3=new Violet("Violet", "Violet",12.4,Seasons.SUMMER,true);
+
+//            flowershop.addProduct(flower1, 1);
             flowershop.addProduct(flower4, 10);
-            flowershop.addProduct(flower2,3);
+//            flowershop.addProduct(flower2,3);
             Bouquete bouquete=new Bouquete(Size.M,true);
-            bouquete.addFlower(flower4);
-            bouquete.addFlower(flower2);
-            bouquete.addFlower(flower3);
-            bouquete.addFlower(flower3);
-            bouquete.addFlower(flower3);
-            bouquete.addFlower(flower3);
+//            bouquete.addFlower(flower4);
+//            bouquete.addFlower(flower4);
+//            bouquete.addFlower(flower2);
+//            bouquete.addFlower(flower3);
+//            bouquete.addFlower(flower3);
+//            bouquete.addFlower(flower3);
+//            bouquete.addFlower(flower3);
             flowershop.addProduct(bouquete, 1);
+//            System.out.println(bouquete);
+            System.out.println(flowershop);
             System.out.println(bouquete);
-            flowershop.buildBouquete(Size.L, bouquete,1);
+            flowershop.buildBouquete(Size.M, flower4,1);
 //            flowershop.buyProduct(bouquete, 1);
 
 
@@ -160,6 +164,7 @@ public class Flowershop {
 
 
             System.out.println(flowershop);
+            System.out.println(bouquete);
         } catch (FlowerShopException f) {
             f.printStackTrace();
         }

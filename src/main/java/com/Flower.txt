@@ -1,0 +1,10 @@
+Rose,Rose,red,4.3,SUMMER,4
+Rose,Rose,red,4.3,SUMMER,4
+Rose,Rose,red,4.3,SUMMER,5
+Rose,Rose,red,4.3,SUMMER,5
+Rose,Rose,red,4.3,SUMMER,4
+Rose,Rose,red,4.3,SUMMER,5
+Rose,Rose,red,4.3,SUMMER,4
+Rose,Rose,red,4.3,SUMMER,5
+Rose,Rose,red,4.3,SUMMER,4
+Rose,Rose,red,4.3,SUMMER,4

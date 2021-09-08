@@ -46,7 +46,7 @@ public class Bouquete extends Product {
         return hasDecoration;
     }
     public int flowersNeeded(){
-        return Math.max(0, flowers.size()-size.getNumberOfFlowers());
+        return size.getNumberOfFlowers() - flowers.size();
     }
 
     public void setHasDecoration(boolean hasDecoration) {
